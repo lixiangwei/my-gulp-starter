@@ -1,19 +1,18 @@
 {
-  "name": "alloyteam-simple",
+  "name": "starter",
   "version": "0.1.0",
-  "description": "Alloyteam Simple Web Apps - By Slush generator alloyteam-simple",
+  "description": "",
   "keywords": [
     "front-end",
-    "alloyteam",
     "web",
     "app"
   ],
-  "homepage": "https://github.com/alloyteam",
+  "homepage": "",
   "repository": {
-    "type": "git",
-    "url": "git://github.com/rehorn/slush-alloyteam-simple.git"
+    "type": "",
+    "url": ""
   },
-  "author": "alloyteam",
+  "author": "xw",
   "dependencies": {
     "async": "^0.9.0",
     "del": "^0.1.3",
@@ -39,8 +38,7 @@
     "style-loader": "^0.8.2",
     "request": "^2.44.1",
     "run-sequence": "^1.0.2",
-    "vinyl-paths": "^1.0.0",
-    "liveproxy": "^0.1.4"
+    "vinyl-paths": "^1.0.0"
   },
   "devDependencies": {
     "gulp-imagemin": "^3.2.0"
