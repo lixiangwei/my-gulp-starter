@@ -66,6 +66,11 @@ var configs = {
     cssRev: './.tmp/.cssrev/',
     jsRev: './.tmp/.jsrev/',
 
+    //提交服务器地址
+    publishUrl: 'http://192.168.1.14/test/',
+    //预览地址
+    preview: '',
+
     // webpack
     webpack: {},
 
@@ -201,6 +206,24 @@ gulp.task('watch', function() {
     gulp.watch(things2copy, opt, ['copy']);
     gulp.watch(image2copy, opt, ['img-rev']);
     gulp.watch(scss2compile, opt, ['compass']);
+});
+
+// 提交文件到服务器
+gulp.task('publish', function() {
+    // publish ars
+    request.post(configs.publishUrl, {
+        form: data
+    }, function(err, resp, body) {
+        var data = JSON.parse(body);
+        if (data.code == 0) {
+            var msg = JSON.parse(data.msg);
+            if (!msg.result) {
+                console.log('提交失败！');
+            } else {
+                openBrowser(configs.preview);
+            }
+        }
+    });
 });
 
 gulp.task('dev', function(cb) {
