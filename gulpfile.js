@@ -67,9 +67,15 @@ var configs = {
     jsRev: './.tmp/.jsrev/',
 
     //提交服务器地址
-    publishUrl: 'http://192.168.1.14/test/',
+    publishUrl: 'http://wap.topsunny.cn/newWX/',
     //预览地址
     preview: '',
+    //要提交的文件
+    formData: {
+        my_file: fs.createReadStream(__dirname + '/dist/test.txt'),
+    },
+    zipName: 'publish.zip',
+    deploy: './deploy/',
 
     // webpack
     webpack: {},
@@ -212,18 +218,23 @@ gulp.task('watch', function() {
 gulp.task('publish', function() {
     // publish ars
     request.post(configs.publishUrl, {
-        form: data
-    }, function(err, resp, body) {
-        var data = JSON.parse(body);
-        if (data.code == 0) {
-            var msg = JSON.parse(data.msg);
-            if (!msg.result) {
-                console.log('提交失败！');
-            } else {
-                openBrowser(configs.preview);
-            }
+        form: configs.formData
+    }, function(err, res, body) {
+        if (err) {
+            return console.error('upload failed:', err);
         }
+        if(res) {
+            console.log('上传状态:', res.statusCode);
+        }
+        console.log('服务器相应内容:', body);
     });
+});
+
+//打包压缩
+gulp.task('zip', function() {
+    return gulp.src('dist/*.*')
+        .pipe(zip(configs.zipName))
+        .pipe(gulp.dest(configs.deploy));
 });
 
 gulp.task('dev', function(cb) {
